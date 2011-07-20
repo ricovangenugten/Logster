@@ -1,0 +1,6 @@
+vendor/
+bin/
+.bundle
+config/database.yml
+log/
+tmp/
