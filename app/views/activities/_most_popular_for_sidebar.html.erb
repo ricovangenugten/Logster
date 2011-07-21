@@ -1,0 +1,8 @@
+<div class="block">
+  <h3>Most popular activities</h3>
+  <ul class="navigation">
+    <% @most_popular_activities.each do |activity| %>
+      <li><span><%= activity[:description] %> (<%= activity[:count] %>)</span></li>
+    <% end %>
+  </ul>
+</div>

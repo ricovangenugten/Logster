@@ -1,0 +1,13 @@
+div#header {
+  background-image: url('/images/logster-logo.gif');
+  background-repeat: no-repeat;
+  background-position: 108px 9px;
+}
+
+td.fixed, th.fixed {
+  width: 175px;
+}
+
+p.date_selector img {
+vertical-align: bottom;
+}

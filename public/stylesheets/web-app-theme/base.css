@@ -91,7 +91,7 @@ body {
   padding: 0 15px;
 }
 
-#sidebar ul.navigation li a:link, #sidebar ul.navigation li a:visited {
+#sidebar ul.navigation li a:link, #sidebar ul.navigation li a:visited, #sidebar ul.navigation li span {
   display: block;
   padding: 10px 15px;
 }
@@ -203,10 +203,6 @@ body {
   padding: 10px;
   font-weight: bold;
   text-align: left;
-}
-
-.table th.first {
-  width: 30px;
 }
 
 .table th.last {

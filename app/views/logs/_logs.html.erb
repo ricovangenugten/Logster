@@ -1,0 +1,43 @@
+<% if @logs.count == 0 %>
+
+  <p>There are no logs for this day!</p>
+
+<% else %>
+
+  <table class="table">
+    <tr>             
+      <th class="first fixed"><%= t("web-app-theme.created_at", :default => "Date")  %></th>
+      <% if mode == 'all_logs' %>
+        <th class="fixed">
+          <%= t("activerecord.attributes.log.user_id", :default => t("activerecord.labels.user_id", :default => "Logger")) %>
+        </th>
+      <% end %>
+      <th>
+        <%= t("activerecord.attributes.log.activity_id", :default => t("activerecord.labels.activity_id", :default => "Activity")) %>
+      </th>
+
+      <th class="last fixed">&nbsp;</th>
+    </tr>
+    <% @logs.each do |log| -%>
+    <tr class="<%= cycle("odd", "even") %>">
+      <td>
+        <%= log.created_at %>
+      </td>
+      <% if mode == 'all_logs' %>
+      <td>
+        <%= log.user.email %>
+      </td>
+      <% end %>
+      <td>
+        <%= log.activity_description %>
+      </td>
+      <td class="last">
+      <% if mode == 'my_logs' %>
+        <%= link_to "#{t("web-app-theme.edit", :default => "Edit")}", edit_log_path(log) %> |
+        <%= link_to "#{t("web-app-theme.delete", :default => "Delete")}", log_path(log), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}" %>
+      <% end %>
+      </td>
+    </tr>          
+    <% end -%>
+  </table>
+<% end %>

@@ -1,8 +1,6 @@
 Logster::Application.routes.draw do
 
-  resources :activities
-
-  resources :logs do
+  resources :logs, :except => [:show] do
     get :autocomplete_activity_description, :on => :collection
   end
 

@@ -1,42 +1,23 @@
 <div class="block">
+  <%= render :partial => 'navigation/secondary', :locals => {:mode => 'all_logs'} %>
   <div class="content">          
     <h2 class="title"><%= t("web-app-theme.all", :default => "All")  %> Logs</h2>
     <div class="inner">
-      <table class="table">
-        <tr>             
-          <th class="first">ID</th>
-                    <th>
-            <%= t("activerecord.attributes.log.activity_id", :default => t("activerecord.labels.activity_id", :default => "Activity_id")) %>
-          </th>
-                    <th><%= t("web-app-theme.created_at", :default => "Created at")  %></th>
-          <th class="last">&nbsp;</th>
-        </tr>
-        <% @logs.each do |log| -%>
-        <tr class="<%= cycle("odd", "even") %>">
-          <td>
-            <%= log.id %>
-          </td>
-                    <td>
-            <%= link_to log.activity_id, log_path(log) %>
-          </td>
-                    <td>
-            <%= log.created_at %>
-          </td>
-          <td class="last">
-            <%= link_to "#{t("web-app-theme.show", :default => "Show")}", log_path(log) %> |
-            <%= link_to "#{t("web-app-theme.edit", :default => "Edit")}", edit_log_path(log) %> |
-            <%= link_to "#{t("web-app-theme.delete", :default => "Delete")}", log_path(log), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}" %>
-          </td>
-        </tr>          
-        <% end -%>
-      </table>
-      <div class="actions-bar wat-cf">
-        <div class="actions">
-        </div>
-        
-        <%= will_paginate @logs  %>
-        
-      </div>
+      <% if @requested_today %>
+        <p class="date_selector">
+          <%= link_to image_tag("resultset_previous.png"), root_path(:date => @requested_date.yesterday) %> 
+          Today
+        </p>
+      <% else %>
+        <p class="date_selector">
+          <%= link_to image_tag("resultset_previous.png"), root_path(:date => @requested_date.yesterday) %> 
+          <%= @requested_date %> 
+          <%= link_to image_tag("resultset_next.png"), root_path(:date => @requested_date.tomorrow) %>
+          <%= link_to image_tag("resultset_last.png"), root_path %>
+        </p>
+      <% end %>
+
+      <%= render :partial => 'logs/logs', :locals => {:mode => 'all_logs'} %>
     </div>
   </div>
 </div>

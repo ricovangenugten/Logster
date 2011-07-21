@@ -4,3 +4,4 @@ bin/
 config/database.yml
 log/
 tmp/
+db/development.sqlite3

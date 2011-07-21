@@ -70,7 +70,7 @@ hr {
   padding: 8px 15px;
 }
 
-#sidebar ul li a:link, #sidebar ul li a:visited {
+#sidebar ul li a:link, #sidebar ul li a:visited, #sidebar ul.navigation li span {
   background: #FFF;
   border-bottom: 1px solid #F0F0EE;
   text-decoration: none;
@@ -194,7 +194,7 @@ hr {
   border: 1px solid #fbb;
   background-color: #fdd;
 }
-.flash .warning {
+.flash .warning, .flash .alert {
   border: 1px solid #fffaaa;
   background-color: #ffffcc;
 }

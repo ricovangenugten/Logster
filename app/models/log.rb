@@ -1,7 +1,18 @@
 class Log < ActiveRecord::Base
   belongs_to :activity
   belongs_to :user
+    
+  default_scope :order => 'created_at desc'
   
-  cattr_reader :per_page
-  @@per_page = 10
+  def activity_description=description
+    @activity = Activity.find_or_create_by_description(description)
+    self.activity = @activity
+  end
+  
+  def activity_description
+    if self.activity
+      self.activity.description
+    end
+  end
+  
 end

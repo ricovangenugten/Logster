@@ -1,0 +1,12 @@
+<div class="secondary-navigation">
+  <ul class="wat-cf">
+    <li class="first <%= mode == 'all_logs' ? 'active' : '' %>"><%= link_to "All logs", root_path  %></li>
+    <li class="<%= mode == 'my_logs' ? 'active' : '' %>"><%= link_to "My logs", logs_path  %></li>
+    <% if mode == 'edit_log' %>
+      <li class="active"><%= link_to 'Edit log', edit_log_path %></li>
+    <% else %>
+      <li class="<%= mode == 'new_log' ? 'active' : '' %>"><%= link_to "New log", new_log_path %></li>
+    <% end %>
+  </ul>
+</div>          
+

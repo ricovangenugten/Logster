@@ -10,6 +10,4 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me
   
-  cattr_reader :per_page
-  @@per_page = 10
 end

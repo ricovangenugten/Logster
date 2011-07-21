@@ -1,37 +1,37 @@
 class LogsController < ApplicationController
 
+  before_filter :authenticate_user!, :load_most_popular_activities
+
   autocomplete :activity, :description, :full => true
   
   # GET /logs
-  # GET /logs.xml
   def index
-    @logs = Log.paginate :page => params[:page]
+  
+    if params[:date] and params[:date].to_date and params[:date].to_date != Time.now.to_date
+      @requested_date = params[:date].to_date
+      @requested_today = false
+    else
+      @requested_date = Time.now.to_date
+      @requested_today = true
+    end
 
+    @logs = Log.
+      where(:user_id => current_user.id).
+      where("created_at > :day_start and created_at < :day_end", {
+        :day_start => @requested_date.at_beginning_of_day, :day_end => @requested_date.tomorrow.at_beginning_of_day
+      })
+   
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @logs }
-    end
-  end
-
-  # GET /logs/1
-  # GET /logs/1.xml
-  def show
-    @log = Log.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @log }
     end
   end
 
   # GET /logs/new
-  # GET /logs/new.xml
   def new
     @log = Log.new
 
     respond_to do |format|
       format.html # new.html.erb
-      format.xml  { render :xml => @log }
     end
   end
 
@@ -41,39 +41,34 @@ class LogsController < ApplicationController
   end
 
   # POST /logs
-  # POST /logs.xml
   def create
     @log = Log.new(params[:log])
+    
+    @log.user = current_user
 
     respond_to do |format|
       if @log.save
-        format.html { redirect_to(@log, :notice => 'Log was successfully created.') }
-        format.xml  { render :xml => @log, :status => :created, :location => @log }
+        format.html { redirect_to(Log, :notice => 'Log was successfully created.') }
       else
         format.html { render :action => "new" }
-        format.xml  { render :xml => @log.errors, :status => :unprocessable_entity }
       end
     end
   end
 
   # PUT /logs/1
-  # PUT /logs/1.xml
   def update
     @log = Log.find(params[:id])
 
     respond_to do |format|
       if @log.update_attributes(params[:log])
-        format.html { redirect_to(@log, :notice => 'Log was successfully updated.') }
-        format.xml  { head :ok }
+        format.html { redirect_to(Log, :notice => 'Log was successfully updated.') }
       else
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @log.errors, :status => :unprocessable_entity }
       end
     end
   end
 
   # DELETE /logs/1
-  # DELETE /logs/1.xml
   def destroy
     @log = Log.find(params[:id])
     @log.destroy
@@ -82,5 +77,12 @@ class LogsController < ApplicationController
       format.html { redirect_to(logs_url) }
       format.xml  { head :ok }
     end
+  end
+  
+  private
+  def load_most_popular_activities
+  
+    @most_popular_activities = Activity.most_popular_activities
+  
   end
 end
