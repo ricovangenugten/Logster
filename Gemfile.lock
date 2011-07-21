@@ -107,7 +107,6 @@ GEM
     warden (1.0.4)
       rack (>= 1.0)
     web-app-theme (0.6.3)
-    will_paginate (3.0.pre2)
 
 PLATFORMS
   ruby
@@ -122,4 +121,3 @@ DEPENDENCIES
   sqlite3
   twitter
   web-app-theme
-  will_paginate (= 3.0.pre2)
