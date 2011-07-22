@@ -17,9 +17,10 @@ class LogsController < ApplicationController
 
     @logs = Log.
       where(:user_id => current_user.id).
-      where("created_at > :day_start and created_at < :day_end", {
+      where("logs.created_at > :day_start and logs.created_at < :day_end", {
         :day_start => @requested_date.at_beginning_of_day, :day_end => @requested_date.tomorrow.at_beginning_of_day
-      })
+      }).
+      includes(:activity)
    
     respond_to do |format|
       format.html # index.html.erb

@@ -5,7 +5,7 @@ class Activity < ActiveRecord::Base
         
     most_popular_activities = []
     
-    Activity.joins(:logs).group(:activity_id).count().sort.take(5).each do |activity_counts|
+    Activity.joins(:logs).group(:activity_id).count().sort_by{|activity_counts| activity_counts.second}.reverse.take(5).each do |activity_counts|
     
       most_popular_activities << {:id => activity_counts.first, :count => activity_counts.second, :description => Activity.find(activity_counts.first).description}
      
